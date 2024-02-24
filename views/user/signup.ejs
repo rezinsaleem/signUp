@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp Page</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    function validateForm() {
+      var emailInput = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirm-password').value;
+
+      // Email validation
+      var emailRegex = /^[A-Za-z\._\-[0-9]+@[A-Za-z]+\.[a-z]{2,}$/;
+      if (!emailRegex.test(emailInput)) {
+        alert('Invalid email address. Please enter a valid email.');
+        return false;
+      }
+
+      // Password validation
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return false;
+      }
+
+      if (password.length < 8) {
+        alert('Password should be at least 8 characters long!');
+        return false;
+      }
+      // If all validations pass, return true for form submission
+      return true;
+    }
+
+  </script>
+</head>
+
+<body>
+
+
+  <div class="login-container">
+    <h2>Sign Up</h2>
+    <form action="/signup" method="post" onsubmit="return validateForm()">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirm-password">Confirm Password:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="/">Login</a></p>
+
+    <% if (typeof errorMessages !=='undefined' && errorMessages.length> 0) {
+      %>
+      <% errorMessages.forEach(message=> { %>
+        <p style="color:red;">
+          <%= message %>
+        </p>
+        <% }); %>
+          <% } %>
+
+  </div>
+
+</body>
+
+</html>

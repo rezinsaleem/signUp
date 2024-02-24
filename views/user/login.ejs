@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/static/style.css">
+
+  <script>
+    function validateForm() {
+      var emailInput = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      // Email validation
+      var emailRegex = /^[A-Za-z\._\-[0-9]+@[A-Za-z]+\.[a-z]{2,}$/;
+      if (!emailRegex.test(emailInput)) {
+        alert('Invalid email address. Please enter a valid email.');
+        return false;
+      }
+      if (password.length < 8) {
+        alert('Password must be at least 8 characters long!');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form action="/login" method="post" onsubmit="return validateForm()">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a class="link" href="/signup">SignUp</a></p>
+
+    <% if (errorMessages && errorMessages.length> 0) { %>
+      <% errorMessages.forEach(message=> { %>
+        <p style="color:red;">
+          <%= message %>
+        </p>
+        <% }); %>
+          <% } %>
+
+            <% if (successMessage) { %>
+              <p style="color:green;">
+                <%= successMessage %>
+              </p>
+              <% } %>
+  </div>
+
+</body>
+
+</html>
